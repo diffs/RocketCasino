@@ -24,12 +24,12 @@ using namespace std;
 
 #pragma warning(disable: 4996)
 
-
 double getDouble(void);
 char getChar(void);
 static void getAnswer();
 double playRound(double result, double autoCashout);
 double generateRandomCrashpoint(void);
+
 
 int main() {
     // Seed the Random Number Generator and set locale to allow for certain characters to be printed to the console
@@ -73,7 +73,7 @@ int main() {
 
         for (int i = 5; i > 0; i--) {
             cout << "Game starting in "<<i<<" seconds..." << endl;
-            Sleep(100);
+            Sleep(1000);
         }
         cout << endl;
 
@@ -107,20 +107,6 @@ int main() {
     cout << "Thanks for playing the Rocket Casino!" << endl;
 
     return 0;
-}
-
-
-/* Function: getAnswer()
- * Description: This function is meant to be used asynchronously with a C++ Future. It detects any time a user presses enter on any input.
- * Parameter: void
- * Returns: void
- */
-static void getAnswer() {
-    char record[INPUT_LENGTH] = {
-      0
-    };
-    char character = 0;
-    fgets(record, INPUT_LENGTH, stdin);
 }
 
 
@@ -190,6 +176,20 @@ double playRound(double crashPoint, double autoCashout) {
 }
 
 
+/* Function: getAnswer()
+ * Description: This function is meant to be used asynchronously with a C++ Future. It detects any time a user presses enter on any input.
+ * Parameter: void
+ * Returns: void
+ */
+static void getAnswer() {
+    char record[INPUT_LENGTH] = {
+      0
+    };
+    char character = 0;
+    fgets(record, INPUT_LENGTH, stdin);
+}
+
+
 /* Function: getDouble()
  * Description: This function gets a floating-point number from the user. If the user enters a valid floating-point number, the value is returned
  * Parameter: void
@@ -244,13 +244,10 @@ double generateRandomCrashpoint(void) {
         return 1.0;
     } else {
         randNum = rand() % 1000;
-        //cout << " rand " << randNum << endl;
         double dRandNum = randNum / (double) 1000;
-        //cout << " dRand " << dRandNum << endl;
         double x = (double) 99 / (1 - dRandNum);
-      //  cout << " x " << x << endl;
+
         x = floor(x);
-        //cout << " floor'ed x " << x << endl;
 
         return max(1, double(x) / double(100));
     }
